@@ -7,23 +7,41 @@
 
 #include "libft2.h"
 
+int num_len(int n) {
+    int len;
+    len = 0;
+    if(n <= 0) {
+        len++;
+    }
+    while(n != 0) {
+        n /= 10;
+        len++;
+    }
+    return len;
+}
+
 char *ft_itoa(int n) {
     size_t len;
     char *str;
     int sign;
-    int new_num;
 
-    new_num = n;
     sign = 1;
+    len = num_len(n);
     if(n < 0) {
         sign = -1;
+        n *= sign;
     }
+    str = (char *)malloc(sizeof(char) * (len +1));
 
-    while(new_num < 1) {
-        new_num = new_num/10;
-        len++;
+    str[len] = '\0';
+
+    while(n != 0) {
+        len--;
+        str[len] = '0' + n%10;
+        n /= 10;
     }
-    str = (char *)malloc(sizeof(char) *len);
-
-    return new_str;
+    if(sign == -1) {
+        str[0] = '-';
+    }
+    return str;  
 }
